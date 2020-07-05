@@ -91,3 +91,46 @@ main{
   }
 }
 
+
+.labelsBox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 94.8vh;
+}
+
+.main_labels{
+  border: 1px solid lightgrey;
+  min-width: 400px;
+  text-align: center;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px lightgrey;
+}
+
+.main_labels h1{
+  color: indigo;
+  font-size: 25px;
+}
+
+.labelList{
+  list-style-type: none;
+  text-align: left;
+  padding: 0
+}
+
+.labelList li{
+  display: inline;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  padding: 3px 5px;
+  margin: 2px;
+}
+
+.newlabel{
+      width: 100%;
+    padding: 5px;
+    margin: 8px 0;
+    border: 1px solid #b3b3b3;
+    border-radius: 3px;
+}
