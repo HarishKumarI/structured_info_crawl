@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import { Route,  BrowserRouter as Router } from 'react-router-dom';
+
 
 
 const semanticstyleLink = document.createElement("link")
@@ -11,11 +13,19 @@ const semanticstyleLink = document.createElement("link")
   semanticstyleLink.href = "https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css"
   document.head.appendChild(semanticstyleLink)
 
+ const routing = (
+        <Router>
+          <div>
+              <Route exact path="/" component={ App } />
+              <Route path="/infox"  component={ App } />
+          </div>
+      </Router>
+    )
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    { routing }
   </React.StrictMode>,
   document.getElementById('root')
 );

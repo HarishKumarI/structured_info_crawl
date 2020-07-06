@@ -6,6 +6,7 @@ import { Label,Icon,Table,Loader } from 'semantic-ui-react'
 import $ from 'jquery'
 import SampleData from './sampleData.json'
 
+
 class App extends React.Component{
   constructor(props){
     super(props)
