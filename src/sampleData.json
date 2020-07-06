@@ -1,0 +1,42 @@
+[
+  {
+    "description": "Black Panther elevates superhero cinema to thrilling new heights while telling one of the MCU's most absorbing stories -- and introducing some of its most fully realized characters.",
+    "directors": "Ryan Coogler",
+    "genres": "Action & Adventure, Drama, Science Fiction & Fantasy",
+    "movie_name": "Black Panther",
+    "url": "https://www.rottentomatoes.com/m/black_panther_2018",
+    "writers": "Joe Robert Cole, Ryan Coogler"
+  },
+  {
+    "description": "Exciting, entertaining, and emotionally impactful, Avengers: Endgame does whatever it takes to deliver a satisfying finale to Marvel's epic Infinity Saga.",
+    "directors": "Anthony Russo",
+    "genres": "Action & Adventure, Drama, Science Fiction & Fantasy",
+    "movie_name": "Avengers: Endgame",
+    "url": "https://www.rottentomatoes.com/m/avengers_endgame",
+    "writers": "Christopher Markus, Stephen McFeely"
+  },
+  {
+    "description": "With Jordan Peele's second inventive, ambitious horror film, we have seen how to beat the sophomore jinx, and it is Us.",
+    "directors": "Jordan Peele",
+    "genres": "Horror, Mystery & Suspense",
+    "movie_name": "Us",
+    "url": "https://www.rottentomatoes.com/m/us_2019",
+    "writers": "Jordan Peele"
+  },
+  {
+    "description": "Heartwarming, funny, and beautifully animated, Toy Story 4 manages the unlikely feat of extending -- and perhaps concluding -- a practically perfect animated saga.",
+    "directors": "Josh Cooley",
+    "genres": "Animation, Comedy, Kids & Family, Science Fiction & Fantasy",
+    "movie_name": "Toy Story 4",
+    "url": "https://www.rottentomatoes.com/m/toy_story_4",
+    "writers": "Andrew Stanton, Stephany Folsom"
+  },
+  {
+    "description": "An absolute masterpiece whose groundbreaking visuals and deft storytelling are still every bit as resonant, The Wizard of Oz is a must-see film for young and old.",
+    "directors": "King Vidor, Victor Fleming",
+    "genres": "Classics, Kids & Family, Musical & Performing Arts, Science Fiction & Fantasy",
+    "movie_name": "The Wizard of Oz",
+    "url": "https://www.rottentomatoes.com/m/the_wizard_of_oz_1939",
+    "writers": "Florence Ryerson, Noel Langley, Edgar Allan Woolf"
+  }
+]

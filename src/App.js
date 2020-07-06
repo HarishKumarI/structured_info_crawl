@@ -1,19 +1,21 @@
-import React,{ Fragment } from 'react';
+
+import React from 'react';
 import './App.css';
 import axios from 'axios'
-import { Label,Icon,Table } from 'semantic-ui-react'
+import { Label,Icon,Table,Loader } from 'semantic-ui-react'
 import $ from 'jquery'
+import SampleData from './sampleData.json'
 
 class App extends React.Component{
   constructor(props){
     super(props)
 
     this.state = {
-      keyvalueList: [],
+      keyvalueList: SampleData,
       file:null,
-      response_data:[],
+      response_data: [],
       loader: false,
-      labels: [ "url", "name" ],
+      labels: [ "url", "description", "directors", "genres", "movie_name", "writers" ],
       editLabels: true
     }
 
@@ -25,9 +27,11 @@ class App extends React.Component{
     this.fetchData = this.fetchData.bind(this)
   }
 
+
+  
   handleChange(event){
     const {name,value} = event.target
-    const name_split = name.split('_')
+    const name_split = name.split('*')
     this.setState( prevState => {
       const newkeyvaluelist = prevState.keyvalueList.map( (valuePair,index) => {
         if( parseInt(name_split[1]) === index ){
@@ -43,8 +47,9 @@ class App extends React.Component{
     event.preventDefault()
     const tempList = this.state.keyvalueList
     tempList.push(Object.assign({}, ...this.state.labels.map((value) => { return {[value]: ""}} )) )
-    this.setState({keyvalueList: tempList })
+    this.setState({kdeyvalueList: tempList })
   }
+
 
   fetchData(event){
     event.preventDefault()
@@ -53,19 +58,20 @@ class App extends React.Component{
     if ( this.state.file !== null ){
       $('#errormsg').hide()
       let data = new FormData()
-      data.append("file", this.state.file, this.state.file.name)
-      data.append('data', JSON.stringify({data: this.state.keyvalueList}))
+      data.append("urls", this.state.file, this.state.file.name)
+      data.append('samples', JSON.stringify(this.state.keyvalueList))
 
       // for (var value of data.values()) {
       //   console.log(value);
       // }
 
-
       this.setState({ loader: true })
+      
       axios
-          .post('/api/fetchData', data)
+          .post('/api/scrape', data)
           .then(response => {
-              this.setState({ response_data: response })
+            // console.log(response.data)
+              this.setState({ response_data: response.data,loader: false })
           })
           .catch(err => {
               console.log(err)
@@ -79,6 +85,7 @@ class App extends React.Component{
 
   }
 
+ 
   camelCase(str){
     let list = str.split(' ')
     list.forEach((value,index) => {
@@ -91,16 +98,17 @@ class App extends React.Component{
 
 
     const valueTabs = this.state.keyvalueList.map(( valuePair,index) => {
+                        // console.log(valuePair)
                         return <div className="valuesTab" key={index} >
-                                    <div className="valuesHeader"> Heading </div>
+                                    <div className="valuesHeader"> InfoX </div>
                                     <div className="valuesBody" >
                                       {
-                                          Object.keys( valuePair ).map( (label,index1) =>{
-                                            return <Fragment key={ index1 }>
-                                                      <label>{ this.camelCase(label) }: </label>
-                                                      <input type="text" name={`${label}_${index}`} placeholder={ `${this.camelCase(label)}` } value={valuePair[label]} onChange={this.handleChange} />
-                                                    </Fragment>
-                                          })
+                                        Object.keys( valuePair ).map( (label,index1) =>{
+                                          return <div key={ index1 } style={{ margin: '10px 0' }} >
+                                                    <label>{ this.camelCase(label) }: </label>
+                                                    <input type="text" name={`${label}*${index}`} placeholder={ `${this.camelCase(label)}` } value={valuePair[label]} onChange={this.handleChange} />
+                                                </div>
+                                        })
                                       }
                                      {/* 
                                       <label>Id: </label>
@@ -113,10 +121,11 @@ class App extends React.Component{
                             return <li key={index}> { value } <Icon name="close" style={{cursor: 'pointer'}} onClick={event => this.setState({ labels: this.state.labels.filter(x => x!== value) }) } /></li>
                         })
     // console.log(this.state.file)
+    document.title = "Structured Information Extractor | Cogniqa"
     return (
       <div className="App">
         <header className="App-header">
-          App Heading
+          Structured Information Extractor
         </header>
           { ( this.state.editLabels ) ?
               <main className="labelsBox">
@@ -161,17 +170,35 @@ class App extends React.Component{
                           }}
                       />
                       <p id="errormsg" style={{ color: 'red',display: 'none',margin: '0',padding: 0 }} > required* </p>
-                      <Label style={{ float: 'right',margin: '5px 0 15px',border: '1px solid #b5b5b5',backgroundColor: '#2185d0',color: 'white',fontSize:'medium',fontWeight:'bolder' }} onClick={this.fetchData} content="Crawl" />
+                      <Label style={{ float: 'right',margin: '5px 0 15px',border: '1px solid #b5b5b5',backgroundColor: '#2185d0',color: 'white',fontSize:'medium',fontWeight:'bolder',cursor: 'pointer' }} onClick={this.fetchData} content="Crawl" />
 
                       { this.state.response_data.length > 0 ? 
                           <Table>
                             <tbody>
-                              <tr><td>  response </td></tr>
+                              <tr><td>
+                                {
+                                  this.state.response_data.map((data,index) => {
+                                    return <Table key={index}><tbody>{ 
+                                        Object.keys(data).map((key,index) => {
+                                          return <tr key={index} ><td>{key}</td><td>{ ( key === 'url') ? <a href={data[key]} rel="noopener noreferrer" target="_blank">{data[key]}</a> : data[key] }</td></tr>
+                                        })
+                                    }</tbody></Table>
+                                  })  
+                                }
+                              </td></tr>
                             </tbody>
                           </Table>
                         :null
                       }
+
                 </div>
+
+                { ( this.state.loader ) ?
+                  <div style={{ background: 'rgba(136, 136, 136, 0.65)', textAlign: 'center', zIndex: 5, alignItems: 'center', position: 'fixed', width: '100%', height: '100%' }} >
+                      <Loader style={{ zIndex: 5 }} active size="big" > Loading </Loader> 
+                  </div>
+                  : null }
+
             </main>
           }
 
@@ -182,3 +209,6 @@ class App extends React.Component{
 }
 
 export default App;
+
+
+  

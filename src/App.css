@@ -106,6 +106,7 @@ main{
   padding: 15px;
   border-radius: 5px;
   box-shadow: 0 0 10px lightgrey;
+  max-width: 60vw;
 }
 
 .main_labels h1{
@@ -120,7 +121,7 @@ main{
 }
 
 .labelList li{
-  display: inline;
+  display: inline-block;
   border-radius: 5px;
   border: 1px solid lightgrey;
   padding: 3px 5px;
@@ -133,4 +134,12 @@ main{
     margin: 8px 0;
     border: 1px solid #b3b3b3;
     border-radius: 3px;
+}
+
+.table{
+  width: 100%;
+}
+
+tr td{
+  border: 1px solid lightgrey;
 }
